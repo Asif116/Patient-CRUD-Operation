@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Form</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<style>
+    .err{
+    color:white;
+    background-color:red;
+    border-color:white;
+    border-style:double;
+    border-width:thick;
+    }
+</style>
+</head>
+<body  style="background-color: LightSteelBlue;">
+
+<div class="container" ><br>
+<h2 style="color:MediumBlu">Patient Form</h2>
+<form th:action="@{/patient/save}" th:object="${patient}" method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+
+    <input type="text" th:field="*{firstName}" placeholder="First Name">
+    <span th:if="${#fields.hasErrors ('firstName')}"
+          th:errors="*{firstName}"
+          class="err"></span><br><br>
+
+
+
+    <input type="text" th:field="*{lastName}" placeholder="Last Name">
+    <span th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}"
+          class="err"></span><br><br>
+
+
+    <input type="text" th:field="*{age}" placeholder="Age"><br><br>
+
+
+    <input type="email" th:field="*{email}" placeholder="Email"><br><br>
+
+    <input type="text" th:field="*{mobileNumber}" placeholder="Mobile Number"><br><br>
+
+
+    <input type="radio" th:field="*{gender}" th:value="${Male}" >Male</input>
+    <input type="radio" th:field="*{gender}" th:value="${Female}">Female</input><br><br>
+
+    <select th:field="*{city}"  aria-label="Default select example">
+        <option th:each="cities:${city}" th:value="${cities}" th:text="${cities}"></option>
+    </select><br><br>
+    <input type="checkbox" th:field="${patient.symptoms}" th:each="symptomses:${symptoms}"
+           th:text="${symptomses}" th:value="${symptomses}"><br><br>
+    <input type="submit" class="btn btn-success" placeholder="Submit">
+</form>
+</div>
+</body>
+</html>
